@@ -1,195 +1,93 @@
-# Website Builder
+# Tutun-Galeata.ro
 
-Build your own website hosting platform using [Cloudflare Workers for Platforms](https://developers.cloudflare.com/cloudflare-for-platforms/workers-for-platforms/). Users can create and deploy websites through a simple web interface.
+Repository dedicat proiectului informativ **Tutun-Galeata.ro**, un site cu articole și resurse despre tutun ambalat în recipiente tip găleată, tipuri de tăiere, condiții de păstrare și diferențele dintre diverse forme de prezentare.
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/workers-for-platforms-template)
+Website:
+https://tutun-galeata.ro/
 
-![Preview](preview.png)
+## Despre proiect
 
-<!-- dash-content-start -->
+Tutun-Galeata.ro este un proiect cu scop informativ, care publică materiale despre:
 
-## Features
+* tutun la găleată;
+* tipuri de ambalare;
+* tutun tăiat firicel;
+* diferențe între tipurile de tăiere;
+* depozitarea recipientelor;
+* temperatură și umiditate;
+* păstrarea produselor după deschidere;
+* informații generale despre procesarea și ambalarea tutunului.
 
-- **Website Builder UI** - Web interface for creating and deploying sites
-- **Static Site Hosting** - Drag & drop HTML/CSS/JS files with automatic asset handling
-- **Custom Worker Code** - Write dynamic sites with full Workers capabilities
-- **Subdomain Routing** - Each site gets `sitename.yourdomain.com`
-- **Custom Domains** - Users can connect their own domains with automatic TLS certificates (powered by custom hostnames)
-- **Admin Dashboard** - Manage all sites and monitor deployment status at `/admin`
+Conținutul este organizat sub forma unor articole și ghiduri ușor de parcurs.
 
-## How It Works
+## Structura site-ului
 
-This template demonstrates how to build a multi-tenant platform using Workers for Platforms:
+Proiectul poate include pagini precum:
 
-1. **Dispatch Namespace** - A container that holds all user-deployed Workers. Each user site is a separate Worker script within this namespace.
+* pagina principală;
+* articole informative;
+* ghiduri despre ambalare;
+* materiale despre depozitare;
+* întrebări frecvente;
+* pagini tematice dedicate diferitelor tipuri de tăiere.
 
-2. **D1 Database** - Stores project metadata including site names, subdomains, custom hostnames, and deployment timestamps.
+## Tutun la găleată
 
-3. **Dynamic Routing** - The main Worker routes requests to the appropriate user Worker based on subdomain or custom hostname.
+Expresia „tutun la găleată” se referă în principal la modalitatea de ambalare a produsului într-un recipient rigid prevăzut cu capac.
 
-4. **Custom Hostnames** - Enables custom domain support with automatic TLS certificate provisioning.
+Forma recipientului nu stabilește automat tipul de tutun sau forma tăierii. În funcție de produs, pot exista tăieturi fine, medii sau mai late.
 
-## Bindings Used
+Mai multe informații sunt disponibile pe:
 
-- **dispatcher** (Workers for Platforms) - Routes requests to user-deployed Workers
-- **DB** (D1) - Stores project metadata and configuration
+https://tutun-galeata.ro/
 
-<!-- dash-content-end -->
+## Depozitare
 
----
+Pentru păstrarea produselor în condiții corespunzătoare trebuie respectate instrucțiunile producătorului și informațiile de pe ambalaj.
 
-## Quick Start
+În general, recipientele trebuie protejate de:
 
-Click the **Deploy to Cloudflare** button above. Everything is auto-configured!
+* temperaturi foarte ridicate;
+* expunere directă la soare;
+* umiditate excesivă;
+* variații mari de temperatură;
+* păstrarea îndelungată cu recipientul deschis.
 
-### Optional: Custom Domain
+Capacul trebuie închis corespunzător după utilizare.
 
-If you want to use your own domain instead of `*.workers.dev`:
+## Resurse
 
-| Variable        | Description                             |
-| --------------- | --------------------------------------- |
-| `CUSTOM_DOMAIN` | Your root domain (e.g., `platform.com`) |
+Articole și informații suplimentare:
 
----
+https://tutun-galeata.ro/
 
-## Architecture
+## Tehnologii
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  Your Platform (this template)                              │
-├─────────────────────────────────────────────────────────────┤
-│  platform.com              → Website Builder UI             │
-│  platform.com/admin        → Admin Dashboard                │
-├─────────────────────────────────────────────────────────────┤
-│  User Sites (Workers for Platforms)                         │
-│  ├── site1.platform.com    → User's deployed Worker         │
-│  ├── site2.platform.com    → User's deployed Worker         │
-│  └── custom.userdomain.com → Custom domain with SSL         │
-├─────────────────────────────────────────────────────────────┤
-│  my.platform.com           → Fallback origin for CNAMEs     │
-└─────────────────────────────────────────────────────────────┘
-```
+Proiectul poate fi găzduit folosind servicii precum:
 
----
+* GitHub Pages;
+* Cloudflare Pages;
+* HTML5;
+* CSS;
+* sitemap.xml;
+* robots.txt;
+* structured data / Schema.org.
 
-## Local Development
+## Scopul repository-ului
 
-```bash
-# Clone the repository
-git clone https://github.com/cloudflare/templates.git
-cd templates/workers-for-platforms-template
+Acest repository poate fi utilizat pentru:
 
-# Install dependencies
-npm install
+* găzduirea paginilor statice;
+* publicarea articolelor informative;
+* gestionarea structurii HTML;
+* administrarea sitemap-ului;
+* versiuni și actualizări de conținut;
+* integrarea cu GitHub Pages și alte servicii de hosting static.
 
-# Run interactive setup (creates tokens, configures everything)
-npm run setup
+## Avertisment
 
-# Start local development server
-npm run dev
+Produsele din tutun prezintă riscuri grave pentru sănătate.
 
-# Run tests
-npm test
-```
+Nicotina creează dependență.
 
-The setup script will:
-
-- Validate your Cloudflare credentials
-- Create the dispatch namespace for Workers for Platforms
-- Auto-create API tokens with correct permissions (if needed)
-- Generate `.dev.vars` with all required configuration
-- Update `wrangler.jsonc` with your settings
-
----
-
-## Custom Domain Setup
-
-To use your own domain instead of `*.workers.dev`:
-
-### 1. Update `wrangler.jsonc`
-
-```jsonc
-{
-	"vars": {
-		"CUSTOM_DOMAIN": "platform.com",
-	},
-	"routes": [{ "pattern": "*/*", "zone_name": "platform.com" }],
-	"workers_dev": false,
-}
-```
-
-### 2. Add DNS Records
-
-In your Cloudflare DNS settings for `platform.com`:
-
-| Type | Name | Content     | Result            | Proxy   |
-| ---- | ---- | ----------- | ----------------- | ------- |
-| A    | `*`  | `192.0.2.1` | `*.platform.com`  | Proxied |
-| A    | `my` | `192.0.2.1` | `my.platform.com` | Proxied |
-
-> **Note:** The root domain (`platform.com`) is automatically configured when you add a custom domain to your Worker in the Cloudflare dashboard. The `192.0.2.1` is a dummy IP - Cloudflare's proxy handles the actual routing.
-
-**About the Fallback Origin (`my.platform.com`):**
-
-This is the hostname your customers will CNAME their custom domains to. When a user wants to connect their own domain (e.g., `shop.example.com`), they add:
-
-```
-CNAME  shop.example.com  →  my.platform.com
-```
-
-Cloudflare uses this fallback origin to route traffic for custom hostnames.
-
-### 3. Redeploy
-
-```bash
-npm run deploy
-```
-
----
-
-## Security
-
-The admin page (`/admin`) shows all projects. Protect it with [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/configure-apps/self-hosted-apps/):
-
-1. Go to **Zero Trust** → **Access** → **Applications**
-2. Add application for `platform.com/admin*`
-3. Configure authentication policy
-
----
-
-## Troubleshooting
-
-| Problem                                     | Solution                                                                                                                                                 |
-| ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| "Dispatch namespace not found"              | Enable Workers for Platforms: [dash.cloudflare.com/?to=/:account/workers-for-platforms](https://dash.cloudflare.com/?to=/:account/workers-for-platforms) |
-| "Custom domain not working"                 | Check Zone ID and DNS records are correct                                                                                                                |
-| "Custom hostnames require additional setup" | Custom hostname tokens are auto-provisioned during Deploy to Cloudflare                                                                                  |
-| "404 on deployed sites"                     | Ensure uploaded files include `index.html` at the root                                                                                                   |
-| Database errors                             | Visit `/admin` to check status, or `/init` to reset                                                                                                      |
-
-**View logs:**
-
-```bash
-npx wrangler tail
-```
-
----
-
-## Prerequisites
-
-- **Cloudflare Account** with Workers for Platforms enabled
-  - [Purchase Workers for Platforms](https://dash.cloudflare.com/?to=/:account/workers-for-platforms) or contact sales (Enterprise)
-- **Node.js 18+**
-
----
-
-## Learn More
-
-- [Workers for Platforms Docs](https://developers.cloudflare.com/cloudflare-for-platforms/workers-for-platforms/)
-- [Custom Hostnames](https://developers.cloudflare.com/cloudflare-for-platforms/cloudflare-for-saas/)
-- [D1 Database](https://developers.cloudflare.com/d1/)
-- [Hono Framework](https://hono.dev/)
-
-## License
-
-Apache-2.0
+Conținutul proiectului este destinat exclusiv persoanelor cu vârsta de peste 18 ani.
